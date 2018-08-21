@@ -14,7 +14,7 @@ import * as firebase from 'firebase';
 
 import Swal from 'sweetalert2';
 import { map } from 'rxjs/operators';
-import { SetUserAction } from './auth.actions';
+import { SetUserAction, UnsetUserAction } from './auth.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +27,7 @@ export class AuthService {
     private router: Router,
     private afDB: AngularFirestore,
     private store: Store<AppState>) {}
-
+    private user: User;
   initAuthListener() {
     this.afAuth.authState.subscribe((fbUser: firebase.User) => {
       if (fbUser) {
@@ -35,8 +35,10 @@ export class AuthService {
           .subscribe( (userObj: any) => {
             const newUser = new User(userObj);
             this.store.dispatch(new SetUserAction(newUser));
+            this.user = newUser;
           });
       } else {
+        this.user = null;
        this.userSubscription.unsubscribe();
       }
     });
@@ -85,6 +87,7 @@ export class AuthService {
   logout() {
     this.router.navigate(['/login']);
     this.afAuth.auth.signOut();
+    this.store.dispatch(new UnsetUserAction());
   }
 
   isAuth() {
@@ -97,5 +100,9 @@ export class AuthService {
         return fbUser != null;
       })
     );
+  }
+
+  getUser() {
+    return {...this.user};
   }
 }

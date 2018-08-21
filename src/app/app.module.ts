@@ -11,26 +11,29 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
+// Charts
+import { ChartsModule } from 'ng2-charts';
+
 // Env
 import { environment } from '../environments/environment';
 
 // Forms
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Modulos
 import { AppRoutingModule } from './app-routing.module';
-
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { IngresoEgresoComponent } from './ingreso-egreso/ingreso-egreso.component';
-import { EstadisticaComponent } from './ingreso-egreso/estadistica/estadistica.component';
-import { DetalleComponent } from './ingreso-egreso/detalle/detalle.component';
+import { StatisticsComponent } from './ingreso-egreso/statistics/statistics.component';
+import { DetailsComponent } from './ingreso-egreso/details/details.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
+import { SortIngresoEgresoPipe } from './ingreso-egreso/sort-ingreso-egreso.pipe';
 
 
 @NgModule({
@@ -40,19 +43,22 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
     RegisterComponent,
     DashboardComponent,
     IngresoEgresoComponent,
-    EstadisticaComponent,
-    DetalleComponent,
+    StatisticsComponent,
+    DetailsComponent,
     FooterComponent,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    SortIngresoEgresoPipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    ChartsModule,
     StoreModule.forRoot(appReducers),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
