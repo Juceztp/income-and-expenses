@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../app.reducer';
+import * as fromIngresoEgreso from '../ingreso-egreso-reducer';
+
 import { Subscription } from 'rxjs';
 import { IngresoEgreso } from '../ingreso-egreso.model';
 
@@ -15,19 +16,19 @@ export class StatisticsComponent implements OnInit {
   expenses: number;
   incomeCounter: number;
   expenseCounter: number;
-  
+
   subscription: Subscription = new Subscription();
 
-  public doughnutChartLabels:string[] = ['Egresos', 'Ingresos'];
-  public doughnutChartData:number[] = [];
+  public doughnutChartLabels: string[] = ['Egresos', 'Ingresos'];
+  public doughnutChartData: number[] = [];
 
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<fromIngresoEgreso.AppState>) { }
 
   ngOnInit() {
     this.subscription = this.store.select('ingresoEgreso')
-      .subscribe( IngresoEgreso => {
-        this.countIncomeExpense (IngresoEgreso.items);
-      })
+      .subscribe( IngresosEgresos => {
+        this.countIncomeExpense (IngresosEgresos.items);
+      });
   }
 
   countIncomeExpense( items: IngresoEgreso[] ) {
