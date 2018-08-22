@@ -1,6 +1,8 @@
 # IngresoEgresoApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8 [NRGX + FIREBASE]
+
+[Demo](https://ingreso-egreso-app-a41e7.firebaseapp.com/).
 
 ## Development server
 
